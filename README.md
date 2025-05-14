@@ -14,12 +14,12 @@
 
 <br>
 
-[![Button Website]][웹사이트] 
-[![Button Usage]][사용법]<br>
-[![Button Configurator]][기여자]<br>
-[![Button Demo]][데모] 
-    
-[![Button Contributors]][기여자]   
+[![Button Website]][Website]
+[![Button Usage]][Usage]<br>
+[![Button Configurator]][Configurator]<br>
+[![Button Demo]][Demo]<br>
+[![Button Contributors]][Contributors]
+
  
 디스코드 서버에 참여하세요:
 
