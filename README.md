@@ -7,18 +7,18 @@
 <br>
 <br>
 
-[![Badge License]][License]
+[![Badge License]][라이센스]
     
     
 다양한 시스템을 위한 자체 호스팅 **Javascript** 에뮬레이션입니다.
 
 <br>
 
-[![Button Website]][Website]
-[![Button Usage]][Usage]<br>
-[![Button Configurator]][Configurator]<br>
-[![Button Demo]][Demo]<br>
-[![Button Contributors]][Contributors]
+[![Button Website]][웹사이트]
+[![Button Usage]][사용 방법]<br>
+[![Button Configurator]][기여자]<br>
+[![Button Demo]][데모]<br>
+[![Button Contributors]][기여자]
 
  
 디스코드 서버에 참여하세요:
