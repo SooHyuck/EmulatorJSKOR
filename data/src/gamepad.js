@@ -1,4 +1,7 @@
 class GamepadHandler {
+    gamepads;
+    timeout;
+    listeners;
     constructor() {
         this.buttonLabels = {
             0: 'BUTTON_1',
@@ -34,7 +37,16 @@ class GamepadHandler {
         this.timeout = setTimeout(this.loop.bind(this), 10);
     }
     updateGamepadState() {
-        const gamepads = Array.from(this.getGamepads());
+        let gamepads = Array.from(this.getGamepads());
+        if (!gamepads) return;
+        if (!Array.isArray(gamepads) && gamepads.length) {
+            let gp = [];
+            for (let i=0; i<gamepads.length; i++) {
+                gp.push(gamepads[i]);
+            }
+            gamepads = gp;
+        } else if (!Array.isArray(gamepads)) return;
+
         gamepads.forEach((gamepad, index) => {
             if (!gamepad) return;
             let hasGamepad = false;
@@ -47,7 +59,7 @@ class GamepadHandler {
                     id: oldGamepad.id
                 }
                 hasGamepad = true;
-                
+
                 oldGamepad.axes.forEach((axis, axisIndex) => {
                     const val = (axis < 0.01 && axis > -0.01) ? 0 : axis;
                     const newVal = (gamepad.axes[axisIndex] < 0.01 && gamepad.axes[axisIndex] > -0.01) ? 0 : gamepad.axes[axisIndex];
@@ -64,7 +76,7 @@ class GamepadHandler {
                     }
                     gamepadToSave.axes[axisIndex] = newVal;
                 })
-                
+
                 gamepad.buttons.forEach((button, buttonIndex) => {
                     let pressed = oldGamepad.buttons[buttonIndex] === 1.0;
                     if (typeof oldGamepad.buttons[buttonIndex] === "object") {
@@ -82,16 +94,22 @@ class GamepadHandler {
                             this.dispatchEvent('buttonup', {index: buttonIndex, label:this.getButtonLabel(buttonIndex), gamepadIndex: gamepad.index});
                         }
                     }
-                    
+
                 })
                 this.gamepads[oldIndex] = gamepadToSave;
             })
             if (!hasGamepad) {
                 this.gamepads.push(gamepads[index]);
+                this.gamepads.sort((a, b) => {
+                    if (a == null && b == null) return 0;
+                    if (a == null) return 1;
+                    if (b == null) return -1;
+                    return a.index - b.index;
+                });
                 this.dispatchEvent('connected', {gamepadIndex: gamepad.index});
             }
         });
-        
+
         for (let j=0; j<this.gamepads.length; j++) {
             if (!this.gamepads[j]) continue;
             let has = false;
